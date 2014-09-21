@@ -65,6 +65,11 @@ colnames(data) <- names
 ## Step 5 Create a second, independently tidy data set with the average of each
 ##	variable for each activity and each subject.
 tidyData <- ddply(data, .(Subject, ActivityID), colwise(mean))
+tidyNames <- colnames(tidyData)
+tidyNames <- paste("Average ", tidyNames, sep="")
+colnames(tidyData) <- tidyNames
+tidyData <- rename(tidyData, c("Average Subject" = "Subject", "Average ActivityID" = "Activity"))
+
 
 ## Write 
 write.table(tidyData, file="tidyData.txt", sep=",")
